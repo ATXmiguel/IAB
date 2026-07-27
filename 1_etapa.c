@@ -4,6 +4,7 @@
 #include<string.h>
 void initscreen(void);
 void check (void);
+void buble(void);
 long long cpf_login;
 char senha_login[50];
 struct funcionarios
@@ -24,8 +25,13 @@ int main(void)
     
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
+    buble();
     initscreen();
     check();
+    for(int i = 0; i < 4; i++)
+    {
+    printf(" %lld\n", team[i].cpf);
+    }
 }
 
 void initscreen(void)
@@ -61,4 +67,17 @@ void check (void)
        }
     }
     printf("CPF ou senha incorretos");
+}
+void buble (void)
+{
+    int temp = 0;
+    for(int i = 0; i < 4;i++)
+    {
+        if (team[i].cpf > team[i+1].cpf)
+        {
+            temp = team[i].cpf;
+            team[i].cpf = team[i+1].cpf;
+            team[i+1].cpf = temp;
+        }
+    }
 }
