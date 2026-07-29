@@ -5,6 +5,7 @@
 void initscreen(void);
 void check (void);
 void buble(void);
+int binario (long long alvo);
 long long cpf_login;
 char senha_login[50];
 struct funcionarios
@@ -28,12 +29,7 @@ int main(void)
     buble();
     initscreen();
     check();
-    for(int i = 0; i < 4; i++)
-    {
-    printf(" %lld\n", team[i].cpf);
-    }
 }
-
 void initscreen(void)
 {
     printf("//////          /////\\\\\\\\\\          ||||||||\\\\   \n");
@@ -56,28 +52,54 @@ void initscreen(void)
     printf("\n\n");
     printf("===================================================== \n\n");
 }
-void check (void)
+void check(void)
 {
-    for(int i = 0; i < 4; i++)
+    int pos = binario(cpf_login);
+    if(pos == -1)
     {
-       if((team[i].cpf == cpf_login)&& strcmp(team[i].senha, senha_login) == 0)
-       {
-            printf("Acesso LIBERADO");
-            return;
-       }
+        printf("CPF ou senha errados");
     }
-    printf("CPF ou senha incorretos");
+    else if(strcmp(team[pos].senha, senha_login) == 0)
+    {
+        printf("Sucesso");
+    }
+}
+int binario (long long alvo)
+{
+    int inicio = 0;
+    int fim = 3;
+    int meio = (inicio + fim) / 2;
+    while(inicio <= fim)
+    {
+        meio = (inicio + fim) / 2;
+        if (alvo > team[meio].cpf)
+        {
+            inicio = meio + 1;
+        }
+        else if (alvo < team[meio].cpf)
+        {
+            fim = meio - 1;
+        }
+        else if(alvo == team[meio].cpf)
+        {
+            return meio;
+        }   
+    }
+    return -1;
 }
 void buble (void)
 {
-    int temp = 0;
-    for(int i = 0; i < 4;i++)
+    struct funcionarios temp;
+    for (int j = 0; j < 3; j++)
+    {
+    for(int i = 0; i < 3;i++)
     {
         if (team[i].cpf > team[i+1].cpf)
         {
-            temp = team[i].cpf;
-            team[i].cpf = team[i+1].cpf;
-            team[i+1].cpf = temp;
+            temp = team[i];
+            team[i] = team[i+1];
+            team[i+1] = temp;
         }
+    }
     }
 }
