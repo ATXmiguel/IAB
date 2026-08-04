@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<windows.h>
 #include<string.h>
+//Avisar o compilador que vai ter as funções
 void initscreen(void);
 void check (void);
 void buble(void);
@@ -15,11 +16,17 @@ struct funcionarios
     char senha[30];
     int nivel;
 };
-struct funcionarios team[4] = {
-{12938302673, "Miguel", "amo67", 2},
-{87609864901, "Bulado", "adoro42", 3},
-{14263849028, "Julia", "odeio67", 1},
-{19203847304, "Joao", "seissete", 3}
+struct funcionarios team[10] = {
+{12938302673, "Miguel Godinho", "amo67", 3},
+{87609864901, "Bruno Bulado", "adoro42", 3},
+{14263849028, "Maycon William", "odeio67", 1},
+{19203847304, "Carlinhos Maia", "seissete", 2},
+{15347659019, "Francisco Assis", "fourtwo", 2},
+{90847836451, "Gabriel Guedes", "vavaS2", 1},
+{98375640183, "João Pedro", "0000", 3},
+{45673820957, "Mariana Vieira", "4242", 1},
+{67672093801, "Augusto Maia", "6767", 1},
+{35692840184, "Henrique Vieira", "nichememe", 1}
 };
 int main(void)
 {
@@ -63,11 +70,15 @@ void check(void)
     {
         printf("Sucesso");
     }
+    else if(strcmp(team[pos].senha, senha_login) != 0)
+    {
+        printf("CPF ou senha errados");
+    }
 }
 int binario (long long alvo)
 {
     int inicio = 0;
-    int fim = 3;
+    int fim = 9;
     int meio = (inicio + fim) / 2;
     while(inicio <= fim)
     {
@@ -90,9 +101,9 @@ int binario (long long alvo)
 void buble (void)
 {
     struct funcionarios temp;
-    for (int j = 0; j < 3; j++)
+    for (int j = 0; j < 9; j++)
     {
-    for(int i = 0; i < 3;i++)
+    for(int i = 0; i < 9;i++)
     {
         if (team[i].cpf > team[i+1].cpf)
         {
