@@ -2,13 +2,24 @@
 #include<stdlib.h>
 #include<windows.h>
 #include<string.h>
-//Avisar o compilador que vai ter as funções
+
+/*Avisar o compilador que essas funções vão ser declaradas mais pra frente*/
+
 void initscreen(void);
 void check (void);
 void buble(void);
 int binario (long long alvo);
+void fail (void);
+
+/*Declaração de variáveis*/
+
 long long cpf_login;
 char senha_login[50];
+int tentativas = 0;
+int autenticado = 0;
+
+/*Declaração do struct funcionários e de um vetor do tipo funcionários*/
+
 struct funcionarios
 {
     long long cpf;
@@ -28,14 +39,23 @@ struct funcionarios team[10] = {
 {67672093801, "Augusto Maia", "6767", 1},
 {35692840184, "Henrique Vieira", "nichememe", 1}
 };
+
+/*Função principal*/
+
 int main(void)
 {
     
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
     buble();
+    while(!autenticado && tentativas<4)
+    {
     initscreen();
-    check();
+    }
+    if(!autenticado)
+    {
+        fail();
+    }
 }
 void initscreen(void)
 {
@@ -58,21 +78,30 @@ void initscreen(void)
     scanf(" %30s", senha_login);
     printf("\n\n");
     printf("===================================================== \n\n");
+    check();
 }
 void check(void)
 {
     int pos = binario(cpf_login);
     if(pos == -1)
     {
-        printf("CPF ou senha errados");
+        printf("CPF ou senha errados\n\n");
+        tentativas++;
+        printf("Você tem %i/3 tentativas restantes... PRESSIONE QUALQUER TECLA PARA CONTINUAR", 4 - tentativas);
+        getch();
+        printf("\n\n");
     }
     else if(strcmp(team[pos].senha, senha_login) == 0)
     {
-        printf("Sucesso");
+        printf("Que bom te ver de novo %s. Seu nivel de acesso atual é: %i/3", team[pos].nome, team[pos].nivel);
+        autenticado = 1;
     }
     else if(strcmp(team[pos].senha, senha_login) != 0)
     {
-        printf("CPF ou senha errados");
+        printf("CPF ou senha errados\n\n");
+        printf("Você tem %i/3 tentativas restantes... PRESSIONE QUALQUER TECLA PARA CONTINUAR", 4 - tentativas);
+        getch();
+        printf("\n\n");
     }
 }
 int binario (long long alvo)
@@ -113,4 +142,9 @@ void buble (void)
         }
     }
     }
+}
+void fail (void)
+{
+    printf("Acabaram suas tentativas... Reinicie o programa para prosseguir\n\n\n");
+    system("pause");
 }
