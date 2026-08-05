@@ -28,16 +28,16 @@ struct funcionarios
     int nivel;
 };
 struct funcionarios team[10] = {
-{12938302673, "Miguel Godinho", "amo67", 3},
-{87609864901, "Bruno Bulado", "adoro42", 3},
-{14263849028, "Maycon William", "odeio67", 1},
-{19203847304, "Carlinhos Maia", "seissete", 2},
-{15347659019, "Francisco Assis", "fourtwo", 2},
-{90847836451, "Gabriel Guedes", "vavaS2", 1},
-{98375640183, "João Pedro", "0000", 3},
-{45673820957, "Mariana Vieira", "4242", 1},
-{67672093801, "Augusto Maia", "6767", 1},
-{35692840184, "Henrique Vieira", "nichememe", 1}
+{12938302673, "Miguel Godinho",  "4tu9", 3},
+{87609864901, "Bruno Bulado",    "1l6p", 3},
+{13222926638, "João Pedro",      "0lh0", 3},
+{19203847304, "Carlinhos Maia",  "60pr", 2},
+{15347659019, "Francisco Assis", "P0l2", 2},
+{90847836451, "Gabriel Guedes",  "m0l3", 1},
+{14263849028, "Maycon William",  "68p4", 1},
+{45673820957, "Mariana Vieira",  "4a7s", 1},
+{67672093801, "Augusto Maia",    "6kd0", 1},
+{35692840184, "Henrique Vieira", "1lj9", 1}
 };
 
 /*Função principal*/
@@ -57,6 +57,10 @@ int main(void)
     if(!autenticado)
     {
         fail();
+    }
+    else
+    {
+        system("pause");
     }
 }
 
@@ -93,6 +97,7 @@ checa se a senha inserida bate com a do funcionário registrado.*/
 void check(void)
 {
     int pos = binario(cpf_login);
+    system("cls");
     if(pos == -1)
     {
         printf("CPF ou senha errados\n\n");
@@ -103,7 +108,7 @@ void check(void)
     }
     else if(strcmp(team[pos].senha, senha_login) == 0)
     {
-        printf("Que bom te ver de novo %s. Seu nivel de acesso atual é: %i/3", team[pos].nome, team[pos].nivel);
+        printf("Que bom te ver de novo %s. Seu nivel de acesso atual é: %i/3\n\n", team[pos].nome, team[pos].nivel);
         autenticado = 1;
     }
     else if(strcmp(team[pos].senha, senha_login) != 0)
@@ -114,6 +119,7 @@ void check(void)
         getch();
         printf("\n\n");
     }
+
 }
 
 /*Essa função basicamente busca o CPF informado na tela inicial se ele encontrar, devolve a posição
