@@ -109,6 +109,7 @@ void check(void)
     else if(strcmp(team[pos].senha, senha_login) != 0)
     {
         printf("CPF ou senha errados\n\n");
+        tentativas++;
         printf("Você tem %i/3 tentativas restantes... PRESSIONE QUALQUER TECLA PARA CONTINUAR", 4 - tentativas);
         getch();
         printf("\n\n");
