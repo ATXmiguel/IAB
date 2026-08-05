@@ -48,15 +48,20 @@ int main(void)
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
     buble();
+    /*Loop de autenticação se o usuario não foi autenticado e ainda tem tentativas disponiveis roda a initscreen*/
     while(!autenticado && tentativas<4)
     {
     initscreen();
     }
+    /*Caso mesmo depois das tres tentativas o usuario não autentique o programa roda a fail() que encerra o programa*/
     if(!autenticado)
     {
         fail();
     }
 }
+
+/*Inicia a tela, pede o input do usuario e chama as funções de autenticação (check, binario)*/
+
 void initscreen(void)
 {
     printf("//////          /////\\\\\\\\\\          ||||||||\\\\   \n");
@@ -80,6 +85,11 @@ void initscreen(void)
     printf("===================================================== \n\n");
     check();
 }
+
+/*No caso dessa função, ela faz a verificação final, depois de saber que o usuario existe
+(por conta da função binario(long long alvo)) ela 
+checa se a senha inserida bate com a do funcionário registrado.*/
+
 void check(void)
 {
     int pos = binario(cpf_login);
@@ -104,6 +114,10 @@ void check(void)
         printf("\n\n");
     }
 }
+
+/*Essa função basicamente busca o CPF informado na tela inicial se ele encontrar, devolve a posição
+do funcionário, caso contrário retorna -1*/
+
 int binario (long long alvo)
 {
     int inicio = 0;
@@ -127,6 +141,9 @@ int binario (long long alvo)
     }
     return -1;
 }
+
+/*Faz o ordenamento de todos os CPFs*/
+
 void buble (void)
 {
     struct funcionarios temp;
@@ -143,6 +160,9 @@ void buble (void)
     }
     }
 }
+
+/*Em caso de falha nas tentativas de autenticação*/
+
 void fail (void)
 {
     printf("Acabaram suas tentativas... Reinicie o programa para prosseguir\n\n\n");
